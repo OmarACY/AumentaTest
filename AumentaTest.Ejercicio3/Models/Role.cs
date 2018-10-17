@@ -11,7 +11,9 @@ namespace AumentaTest.Ejercicio3.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Active { get; set; }
 
-        public ObservableCollection<Permission> Permissions;
+        public ObservableCollection<UserRole> UserRoles;
+        public ObservableCollection<RolePermission> RolePermissions;
     }
 }
