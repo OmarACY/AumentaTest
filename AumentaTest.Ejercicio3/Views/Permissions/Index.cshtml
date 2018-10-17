@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = "Permisos";
 }
-<br />
+
+<h3>Listado de permisos</h3>
+<hr />
+
 <div class="panel panel-default">
     <div class="panel-heading">@Html.ActionLink("Crear nuevo permiso", "Create", null, new { @class = "btn btn-primary btn-block" })</div>
     <table class="table">
@@ -32,9 +35,15 @@
                     @Html.DisplayFor(modelItem => item.Enabled)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    <a href="@Url.Action("Edit","Permissions",new {id = item.Id})" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a href="@Url.Action("Details","Permissions",new {id = item.Id})" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </a>
+                    <a href="@Url.Action("Delete","Permissions",new {id = item.Id})" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
                 </td>
             </tr>
         }

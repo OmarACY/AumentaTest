@@ -1,14 +1,13 @@
 ﻿@model AumentaTest.Ejercicio3.Models.Permission
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Permisos";
 }
 
-<h2>Details</h2>
+<h3>Detalles del permiso</h3>
+<hr />
 
 <div>
-    <h4>Permission</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -36,7 +35,9 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
+    @Html.ActionLink("Regresar al listado", "Index") &nbsp; | &nbsp;
+    <i class="glyphicon glyphicon-pencil"></i> &nbsp;
+    @Html.ActionLink("Editar permiso", "Edit", new { id = Model.Id })
+</div>

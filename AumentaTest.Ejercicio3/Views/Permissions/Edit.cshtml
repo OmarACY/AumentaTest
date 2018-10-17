@@ -1,19 +1,17 @@
 ﻿@model AumentaTest.Ejercicio3.Models.Permission
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Permisos";
 }
 
-<h2>Edit</h2>
-
+<h3>Editar permiso</h3>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Permission</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -45,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -53,7 +51,7 @@
 
 <div>
     <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
-    @Html.ActionLink("Regresar al listado de usuarios", "Index") &nbsp;
+    @Html.ActionLink("Regresar al listado", "Index") &nbsp;
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
