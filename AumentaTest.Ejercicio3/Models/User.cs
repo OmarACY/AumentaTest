@@ -17,19 +17,23 @@ namespace AumentaTest.Ejercicio3.Models
         [DisplayName("Nombre de usuario")]
         [StringLength(100)]
         public string UserName { get; set; }
+
         [Required]
         [DisplayName("Nombre(s)")]
         [StringLength(100)]
         public string Name { get; set; }
+
         [Required]
         [StringLength(100)]
         [DisplayName("Apellido(s)")]
         public string LastName { get; set; }
+
         [Required]
         [StringLength(100)]
         [DataType(DataType.EmailAddress)]
         [DisplayName("Correo electrónico")]
         public string Email { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [DisplayName("Contraseña")]
