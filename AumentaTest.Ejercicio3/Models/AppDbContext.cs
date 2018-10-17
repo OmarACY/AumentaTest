@@ -15,7 +15,7 @@ namespace AumentaTest.Ejercicio3.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public AppDbContext() : base("name=AppServerDbContext")
+        public AppDbContext() : base("name=AppLocalDbContext")
         {
             Database.SetInitializer
             (
