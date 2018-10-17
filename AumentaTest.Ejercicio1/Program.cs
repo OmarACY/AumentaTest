@@ -4,12 +4,11 @@ using System.Linq;
 
 /**
  * Casos de prueba : 
- * 1. Datos de entrada no enteros: El programa validará si el numero introducido es de tipo entero cuando asi se requiera.
- * 2. Datos de entrada muy grandes: Si el usuario ingresa valores muy grandes, el programa le pedira introducir un valor valido.
- * 3. No permitir imprimir arreglos muy grandes: Si el usuario intenta imprimir un arreglo que excede los 1000 elementos
- *                                               el programa no lo permitira por cuestiones de memoria.
- * 4. No validar en arreglos vacios: Si el usuario no llena el arreglo o no se crea correctamente, no podra validar elementos.
- * 5. Metodos con tareas especificas: Todos los metodos tiene tareas especificas reduciendo asi la duplicidad de codigo.
+ * 1. Datos de entrada cadenas: Si el valor de entrada es una cadena el programa pedira nuevamente el valor.
+ * 2. Datos de entrada flotantes: Si el valor de entrada es un numero de punto flotante el programa pedira nuevamente el valor.
+ * 3. Datos de entrada caracteres: Si el valor de entrada es un caracter el programa pedira nuevamente el valor.
+ * 4. Datos de entrada entero negativo: Si el valor de entrada es un entero negativo el programa pedira nuevamente el valor.
+ * 5. Datos de entrada muy grandes: Si el usuario ingresa valores muy grandes, el programa le pedira introducir un valor valido.
  */
 
 namespace AumentaTest.Ejercicio1
@@ -92,7 +91,7 @@ namespace AumentaTest.Ejercicio1
             int[] array;
             Console.WriteLine("--- Primero debes crear y llenar tu arreglo ---\n");
             Console.WriteLine("Elige una de la siguientes opciones: \n");
-            Console.WriteLine("1. Crear y llenar arreglo automaticamente (Valores entre 1 y 999).");
+            Console.WriteLine("1. Crear y llenar arreglo automaticamente (Valores entre -999 y 999).");
             Console.WriteLine("2. Crear y llenar arreglo manualmente.");
             Console.WriteLine("Presione cualquier otra tecla para salir...\n");
             Console.Write("-> ");
@@ -123,7 +122,7 @@ namespace AumentaTest.Ejercicio1
         private static int GetSizeArray()
         {
             Console.WriteLine("\n¿De que tamaño quieres tu arreglo?");
-            return GetUserElement();
+            return GetUserElement(true);
         }
 
         /**
@@ -139,7 +138,7 @@ namespace AumentaTest.Ejercicio1
             var r = new Random();
             for (var i = 0; i < n; i++)
             {
-                array[i] = r.Next(0, 1000);
+                array[i] = r.Next(-1000, 1000);
             }
             return array;
         }
@@ -192,16 +191,27 @@ namespace AumentaTest.Ejercicio1
          * Metodo para pedir un elemento de tipo entero al usuario
          * </summary>
          */
+        /// <param name="positive">Indica si solo se aceptan valores positivos (El valor por defecto es falso)</param>
         ///<returns>Numero entero</returns>
-        private static int GetUserElement()
+        private static int GetUserElement(bool positive = false)
         {
             bool valid;
             int number;
             do
             {
                 valid = int.TryParse(Console.ReadLine(), out number);
-                if (valid) continue;
-                Console.Write("Por favor introduce un valor entero: ");
+                if (!valid)
+                {
+                    Console.Write("Por favor introduce un valor entero: ");
+                }
+                else
+                {
+                    if (!positive) continue;
+                    valid = number > 0;
+                    if(!valid) Console.Write("Por favor introduce un entero positivo: ");
+                }
+                
+                
             } while (!valid);
 
             return number;
