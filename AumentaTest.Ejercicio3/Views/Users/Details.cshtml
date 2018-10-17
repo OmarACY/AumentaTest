@@ -1,17 +1,17 @@
 ﻿@model AumentaTest.Ejercicio3.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Usuario";
 }
 
-<h2>Details</h2>
+<h3>Detalles del usuario</h3>
+<hr />
 
 <div>
-    <h4>User</h4>
-    <hr />
+    
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayNameFor(model => model.UserName) :
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Name) :
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.LastName) :
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Email) :
         </dt>
 
         <dd>
@@ -43,16 +43,18 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.DisplayNameFor(model => model.Password) :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Password)
         </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
+    @Html.ActionLink("Regresar al listado de usuarios", "Index") &nbsp; | &nbsp;
+    <i class="glyphicon glyphicon-pencil"></i> &nbsp;
+    @Html.ActionLink("Editar usuario", "Edit", new { id = Model.Id })
+
+</div>

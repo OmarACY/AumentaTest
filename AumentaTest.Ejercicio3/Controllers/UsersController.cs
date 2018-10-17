@@ -79,7 +79,7 @@ namespace AumentaTest.Ejercicio3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,LastName,Email,Password")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,UserName,Name,LastName,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {

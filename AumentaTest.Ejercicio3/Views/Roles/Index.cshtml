@@ -3,10 +3,10 @@
 @{
     ViewBag.Title = "Roles";
 }
-<br />
+<h2>Listado de roles</h2>
+<hr />
 <div class="panel panel-default">
-    <div class="panel-heading"><h2 class="text-center">Roles</h2></div>
-    @Html.ActionLink("Crear nuevo", "Create", null, new { @class = "btn btn-primary btn-block" })
+    <div class="panel-heading">@Html.ActionLink("Crear nuevo rol", "Create", null, new {@class = "btn btn-primary btn-block"})</div>
     <table class="table">
         <tr>
             <th>
@@ -21,7 +21,8 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -33,13 +34,13 @@
                     @Html.DisplayFor(modelItem => item.Enabled)
                 </td>
                 <td>
-                    <a href="@Url.Action("Edit","Roles",new {id = item.Id})" class="btn btn-default btn-xs">
+                    <a href="@Url.Action("Edit", "Roles", new {id = item.Id})" class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a href="@Url.Action("Details","Roles",new {id = item.Id})" class="btn btn-default btn-xs">
+                    <a href="@Url.Action("Details", "Roles", new {id = item.Id})" class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-eye-open"></span>
                     </a>
-                    <a href="@Url.Action("Delete","Roles",new {id = item.Id})" class="btn btn-default btn-xs">
+                    <a href="@Url.Action("Delete", "Roles", new {id = item.Id})" class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>
