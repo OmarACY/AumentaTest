@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 /**
  * Casos de prueba : 
- * 1. Datos de entrada no enteros: El programa validará si el numero introducido es de tipo entero cuando asi se requiera.
+ * 1. Datos de entrada no enteros: El programa validará si el numero introducido es de tipo entero.
  * 2. Datos de entrada muy grandes: Si el usuario ingresa valores muy grandes, el programa le pedira introducir un valor valido.
  */
 
