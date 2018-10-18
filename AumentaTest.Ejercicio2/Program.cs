@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 /**
  * Casos de prueba : 
- * 1. Datos de entrada no enteros: El programa validará si el numero introducido es de tipo entero.
- * 2. Datos de entrada muy grandes: Si el usuario ingresa valores muy grandes, el programa le pedira introducir un valor valido.
+ * 1. Datos de entrada cadenas: Si el valor de entrada es una cadena el programa pedira nuevamente el valor.
+ * 2. Datos de entrada flotantes: Si el valor de entrada es un numero de punto flotante el programa pedira nuevamente el valor.
+ * 3. Datos de entrada caracteres: Si el valor de entrada es un caracter el programa pedira nuevamente el valor.
+ * 4. Datos de entrada muy grandes: Si el usuario ingresa valores muy grandes, el programa le pedira introducir un valor valido.
+ * 4. a menor que b: Si a es menor que b el programa funcionara de igual forma
  */
 
 namespace AumentaTest.Ejercicio2
