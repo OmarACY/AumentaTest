@@ -38,10 +38,17 @@ namespace AumentaTest.Ejercicio3.Controllers
         }
 
         // GET: RolePermissions/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.Id = id;
+            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == id), "Id", "Name");
             ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name");
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name");
+
             return View();
         }
 
@@ -56,11 +63,12 @@ namespace AumentaTest.Ejercicio3.Controllers
             {
                 db.RolePermission.Add(rolePermission);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Roles", new { id = rolePermission.RoleId });
             }
 
+            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == rolePermission.RoleId), "Id", "Name");
             ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", rolePermission.RoleId);
+            
             return View(rolePermission);
         }
 

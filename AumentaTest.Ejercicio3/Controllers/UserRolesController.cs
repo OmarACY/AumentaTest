@@ -64,7 +64,7 @@ namespace AumentaTest.Ejercicio3.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Edit", "Users", new { id = userRole.UserId });
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", userRole.UserId);
+            ViewBag.UserId = new SelectList(db.Users.Where(x => x.Id == userRole.UserId), "Id", "UserName");
             ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", userRole.RoleId);
             return View(userRole);
         }
