@@ -66,13 +66,11 @@ namespace AumentaTest.Ejercicio3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //User user = await db.Users.FindAsync(id);
-            User user = await db.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var user = await db.Users.FindAsync(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-
             user.UserRoles = db.UserRole.Where(x => x.UserId == id).Include(y => y.Role).ToListAsync().Result;
 
             return View(user);

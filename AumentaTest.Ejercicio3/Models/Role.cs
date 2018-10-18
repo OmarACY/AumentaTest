@@ -26,6 +26,6 @@ namespace AumentaTest.Ejercicio3.Models
         public bool Enabled { get; set; }
 
         public List<UserRole> UserRoles;
-        public ObservableCollection<RolePermission> RolePermissions;
+        public List<RolePermission> RolePermissions;
     }
 }

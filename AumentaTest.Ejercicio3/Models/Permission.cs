@@ -13,7 +13,7 @@ namespace AumentaTest.Ejercicio3.Models
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("Nombre")]
+        [DisplayName("Nombre del permiso")]
         [StringLength(100)]
         public string Name { get; set; }
 
@@ -25,6 +25,6 @@ namespace AumentaTest.Ejercicio3.Models
         [DisplayName("Habilitado")]
         public bool Enabled { get; set; }
 
-        public ObservableCollection<RolePermission> RolePermissions;
+        public List<RolePermission> RolePermissions;
     }
 }

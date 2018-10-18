@@ -100,13 +100,20 @@ namespace AumentaTest.Ejercicio3.Controllers
         }
 
         // GET: RolePermissions/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int? roleId, int? permissionId)
         {
-            if (id == null)
+            if (roleId == null || permissionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RolePermission rolePermission = await db.RolePermission.FindAsync(id);
+
+            var rolePermission = await db.RolePermission.
+                Where(x => x.RoleId == roleId)
+                .Where(x => x.PermissionId == permissionId)
+                .Include(x => x.Role)
+                .Include( x => x.Permission)
+                .FirstOrDefaultAsync();
+
             if (rolePermission == null)
             {
                 return HttpNotFound();
@@ -117,12 +124,17 @@ namespace AumentaTest.Ejercicio3.Controllers
         // POST: RolePermissions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int roleId, int permissionId)
         {
-            RolePermission rolePermission = await db.RolePermission.FindAsync(id);
+            var rolePermission = await db.RolePermission
+                .Where( x => x.RoleId == roleId)
+                .Where( x => x.PermissionId == permissionId)
+                .FirstAsync();
+
             db.RolePermission.Remove(rolePermission);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Edit", "Roles", new { id = roleId });
         }
 
         protected override void Dispose(bool disposing)

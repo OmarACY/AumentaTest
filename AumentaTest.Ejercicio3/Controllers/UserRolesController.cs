@@ -111,11 +111,12 @@ namespace AumentaTest.Ejercicio3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserRole userRole = await db.UserRole
+            var userRole = await db.UserRole
                 .Where(x => x.UserId == userId)
                 .Where(x => x.RoleId == roleId)
-                .Include(y => y.User)
-                .Include(z => z.Role).FirstOrDefaultAsync();
+                .Include(x => x.User)
+                .Include(x => x.Role)
+                .FirstOrDefaultAsync();
 
             if (userRole == null)
             {
@@ -129,11 +130,14 @@ namespace AumentaTest.Ejercicio3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int? userId, int? roleId)
         {
-            UserRole userRole = await db.UserRole
+            var userRole = await db.UserRole
                 .Where(x => x.UserId == userId)
-                .Where(x => x.RoleId == roleId).FirstAsync();
+                .Where(x => x.RoleId == roleId)
+                .FirstAsync();
+
             db.UserRole.Remove(userRole);
             await db.SaveChangesAsync();
+
             return RedirectToAction("Edit", "Users", new { id = userId });
         }
 
