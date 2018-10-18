@@ -47,7 +47,7 @@ namespace AumentaTest.Ejercicio3.Controllers
 
             ViewBag.Id = id;
             ViewBag.UserId = new SelectList(db.Users.Where(x => x.Id == id), "Id", "UserName");
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name");
+            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Enabled), "Id", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace AumentaTest.Ejercicio3.Controllers
                 return RedirectToAction("Edit", "Users", new { id = userRole.UserId });
             }
             ViewBag.UserId = new SelectList(db.Users.Where(x => x.Id == userRole.UserId), "Id", "UserName");
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", userRole.RoleId);
+            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Enabled), "Id", "Name", userRole.RoleId);
             return View(userRole);
         }
 

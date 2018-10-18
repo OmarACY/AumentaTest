@@ -47,7 +47,7 @@ namespace AumentaTest.Ejercicio3.Controllers
 
             ViewBag.Id = id;
             ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == id), "Id", "Name");
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name");
+            ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled), "Id", "Name");
 
             return View();
         }
@@ -67,7 +67,7 @@ namespace AumentaTest.Ejercicio3.Controllers
             }
 
             ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == rolePermission.RoleId), "Id", "Name");
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
+            ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled), "Id", "Name", rolePermission.PermissionId);
             
             return View(rolePermission);
         }
