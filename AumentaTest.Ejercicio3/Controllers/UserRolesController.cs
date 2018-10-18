@@ -38,10 +38,16 @@ namespace AumentaTest.Ejercicio3.Controllers
         }
 
         // GET: UserRoles/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.Id = id;
+            ViewBag.UserId = new SelectList(db.Users.Where(x => x.Id == id), "Id", "UserName");
             ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name");
             return View();
         }
 
@@ -56,11 +62,10 @@ namespace AumentaTest.Ejercicio3.Controllers
             {
                 db.UserRole.Add(userRole);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Users", new { id = userRole.UserId });
             }
-
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", userRole.UserId);
             ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", userRole.RoleId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", userRole.UserId);
             return View(userRole);
         }
 
@@ -109,8 +114,8 @@ namespace AumentaTest.Ejercicio3.Controllers
             UserRole userRole = await db.UserRole
                 .Where(x => x.UserId == userId)
                 .Where(x => x.RoleId == roleId)
-                .Include(x => x.User)
-                .Include(x => x.Role).FirstOrDefaultAsync();
+                .Include(y => y.User)
+                .Include(z => z.Role).FirstOrDefaultAsync();
 
             if (userRole == null)
             {
