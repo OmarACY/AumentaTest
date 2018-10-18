@@ -25,28 +25,28 @@ namespace AumentaTest.Ejercicio3.Controllers
 
             ViewBag.Id = id;
             ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == id), "Id", "Name");
-            ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled), "Id", "Name");
+            var rolePermissions = db.RolePermission.Where(x => x.RoleId == id).Select(r => r.PermissionId).ToList();
+            ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled).Where(r => !rolePermissions.Contains(r.Id)), "Id", "Name");
 
             return View();
         }
 
         // POST: RolePermissions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "PermissionId,RoleId")] RolePermission rolePermission)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && rolePermission.PermissionId != 0)
             {
                 db.RolePermission.Add(rolePermission);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Edit", "Roles", new { id = rolePermission.RoleId });
             }
-
+            ViewBag.Id = rolePermission.RoleId;
             ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == rolePermission.RoleId), "Id", "Name");
-            ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled), "Id", "Name", rolePermission.PermissionId);
-            
+            var rolePermissions = db.RolePermission.Where(x => x.RoleId == rolePermission.RoleId).Select(r => r.PermissionId).ToList();
+            ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled).Where(r => !rolePermissions.Contains(r.Id)), "Id", "Name",rolePermission.PermissionId);
+
             return View(rolePermission);
         }
 

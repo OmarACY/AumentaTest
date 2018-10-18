@@ -25,7 +25,8 @@ namespace AumentaTest.Ejercicio3.Controllers
 
             ViewBag.Id = id;
             ViewBag.UserId = new SelectList(db.Users.Where(x => x.Id == id), "Id", "UserName");
-            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Enabled), "Id", "Name");
+            var userRoles = db.UserRole.Where(x => x.UserId == id).Select(r => r.RoleId).ToList();
+            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Enabled).Where(r => !userRoles.Contains(r.Id)), "Id", "Name");
             return View();
         }
 
@@ -34,14 +35,17 @@ namespace AumentaTest.Ejercicio3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "RoleId,UserId")] UserRole userRole)
         {
-            if (ModelState.IsValid)
+
+            if (ModelState.IsValid && userRole.RoleId != 0)
             {
                 db.UserRole.Add(userRole);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Edit", "Users", new { id = userRole.UserId });
             }
+            ViewBag.Id = userRole.UserId;
             ViewBag.UserId = new SelectList(db.Users.Where(x => x.Id == userRole.UserId), "Id", "UserName");
-            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Enabled), "Id", "Name", userRole.RoleId);
+            var userRoles = db.UserRole.Where(x => x.UserId == userRole.UserId).Select(r => r.RoleId).ToList();
+            ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Enabled).Where(r => !userRoles.Contains(r.Id)), "Id", "Name", userRole.RoleId);
             return View(userRole);
         }
 
