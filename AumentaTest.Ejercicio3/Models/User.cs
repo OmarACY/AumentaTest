@@ -17,6 +17,7 @@ namespace AumentaTest.Ejercicio3.Models
         [Required]
         [DisplayName("Nombre de usuario")]
         [StringLength(15)]
+        [RegularExpression(@"^[a-zA-Z0-9]*$",ErrorMessage = "No se aceptan espacios ni caracteres especiales para el 'Nombre de usuario'.")]
         public string UserName { get; set; }
 
         [Required]
