@@ -16,7 +16,7 @@ namespace AumentaTest.Ejercicio3.Models
         public int Id { get; set; }
         [Required]
         [DisplayName("Nombre de usuario")]
-        [StringLength(100)]
+        [StringLength(15)]
         public string UserName { get; set; }
 
         [Required]
