@@ -11,10 +11,10 @@ namespace AumentaTest.Ejercicio3.Models
     {
         public AppDbContext() : base("name=AppServerDbContext")
         {
-            Database.SetInitializer
+            /*Database.SetInitializer
             (
                 new DropCreateDatabaseIfModelChanges<AppDbContext>()
-            );
+            );*/
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
