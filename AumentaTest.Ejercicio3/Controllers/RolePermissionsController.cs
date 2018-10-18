@@ -15,28 +15,6 @@ namespace AumentaTest.Ejercicio3.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
-        // GET: RolePermissions
-        public async Task<ActionResult> Index()
-        {
-            var rolePermission = db.RolePermission.Include(r => r.Permission).Include(r => r.Role);
-            return View(await rolePermission.ToListAsync());
-        }
-
-        // GET: RolePermissions/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RolePermission rolePermission = await db.RolePermission.FindAsync(id);
-            if (rolePermission == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rolePermission);
-        }
-
         // GET: RolePermissions/Create
         public ActionResult Create(int? id)
         {
@@ -69,41 +47,6 @@ namespace AumentaTest.Ejercicio3.Controllers
             ViewBag.RoleId = new SelectList(db.Roles.Where(x => x.Id == rolePermission.RoleId), "Id", "Name");
             ViewBag.PermissionId = new SelectList(db.Permissions.Where(x => x.Enabled), "Id", "Name", rolePermission.PermissionId);
             
-            return View(rolePermission);
-        }
-
-        // GET: RolePermissions/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RolePermission rolePermission = await db.RolePermission.FindAsync(id);
-            if (rolePermission == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", rolePermission.RoleId);
-            return View(rolePermission);
-        }
-
-        // POST: RolePermissions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PermissionId,RoleId")] RolePermission rolePermission)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(rolePermission).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", rolePermission.RoleId);
             return View(rolePermission);
         }
 
