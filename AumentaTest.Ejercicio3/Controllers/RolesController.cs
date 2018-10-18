@@ -28,11 +28,14 @@ namespace AumentaTest.Ejercicio3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = await db.Roles.FindAsync(id);
+            var role = await db.Roles.FindAsync(id);
             if (role == null)
             {
                 return HttpNotFound();
             }
+
+            role.RolePermissions = db.RolePermission.Where(x => x.RoleId == id).Include(y => y.Permission).ToListAsync().Result;
+
             return View(role);
         }
 

@@ -6,46 +6,86 @@
 
 <h3>Detalles del usuario</h3>
 <hr />
+<div class="row">
+    <div class="col-md-6">
+        
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
 
-<div>
-    
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Roles</h4>
+        <div class="panel panel-default">
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Habilitado
+                    </th>
+                    <th></th>
+                </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
+                @foreach (var item in Model.UserRoles)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.Enabled)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 </div>
-<div>
-    <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
-    @Html.ActionLink("Regresar al listado", "Index") &nbsp; | &nbsp;
-    <i class="glyphicon glyphicon-pencil"></i> &nbsp;
-    @Html.ActionLink("Editar usuario", "Edit", new { id = Model.Id })
+
+<div class="row">
+    <div class="col-md-6">
+        <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
+        @Html.ActionLink("Regresar al listado", "Index") &nbsp; | &nbsp;
+        <i class="glyphicon glyphicon-pencil"></i> &nbsp;
+        @Html.ActionLink("Editar usuario", "Edit", new { id = Model.Id })
+    </div>
 </div>

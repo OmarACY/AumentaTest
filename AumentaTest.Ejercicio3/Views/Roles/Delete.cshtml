@@ -1,10 +1,10 @@
 ﻿@model AumentaTest.Ejercicio3.Models.Role
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Roles";
 }
 
-<h2>Eliminar rol</h2>
+<h3>Eliminar rol</h3>
 <hr />
 <h3>¿Estás seguro que quieres eliminar este rol?</h3>
 <div>
@@ -32,7 +32,6 @@
         <dd>
             @Html.DisplayFor(model => model.Enabled)
         </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
