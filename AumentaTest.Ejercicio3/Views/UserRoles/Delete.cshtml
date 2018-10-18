@@ -1,28 +1,28 @@
 ﻿@model AumentaTest.Ejercicio3.Models.UserRole
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar la asignación de rol";
 }
 
-<h3>Eliminar la asignación de rol</h3>
+<h3>¿Estás seguro que quieres eliminar este rol para este usuario?</h3>
 <hr />
-<h3>¿Estás seguro que quieres eliminar este usuario?</h3>
 <div>
     <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Role.Name)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Role.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
         </dd>
 
     </dl>

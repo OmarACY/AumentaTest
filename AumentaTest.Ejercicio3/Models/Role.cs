@@ -13,7 +13,7 @@ namespace AumentaTest.Ejercicio3.Models
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("Nombre")]
+        [DisplayName("Nombre del rol")]
         [StringLength(100)]
         public string Name { get; set; }
 
