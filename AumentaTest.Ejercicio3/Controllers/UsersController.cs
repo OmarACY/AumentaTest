@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AumentaTest.Ejercicio3.Models;
+using AumentaTest.Ejercicio3.Util;
 
 namespace AumentaTest.Ejercicio3.Controllers
 {
@@ -43,20 +44,15 @@ namespace AumentaTest.Ejercicio3.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,UserName,Name,LastName,Email,Password")] User user)
         {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
+            if (!ModelState.IsValid) return View(user);
+            user.Password = PasswordHelper.EncodePassword(user.Password);
+            db.Users.Add(user);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Edit/5
@@ -77,19 +73,24 @@ namespace AumentaTest.Ejercicio3.Controllers
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,UserName,Name,LastName,Email,Password")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,UserName,Name,LastName,Email,Password,NewPassword")] User user)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                user.UserRoles = db.UserRole.Where(x => x.UserId == user.Id).Include(y => y.Role).ToListAsync().Result;
+                return View(user);
             }
-            return View(user);
+
+            if (!string.IsNullOrWhiteSpace(user.NewPassword))
+            {
+                user.Password = PasswordHelper.EncodePassword(user.NewPassword);
+            }
+
+            db.Entry(user).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Delete/5

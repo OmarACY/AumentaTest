@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
@@ -38,6 +39,11 @@ namespace AumentaTest.Ejercicio3.Models
         [DataType(DataType.Password)]
         [DisplayName("Contraseña")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [DisplayName("Nueva Contraseña")]
+        [NotMapped]
+        public virtual string NewPassword { get; set; }
 
         public List<UserRole> UserRoles;
     }
