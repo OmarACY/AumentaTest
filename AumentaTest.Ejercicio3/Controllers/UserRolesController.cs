@@ -100,13 +100,18 @@ namespace AumentaTest.Ejercicio3.Controllers
         }
 
         // GET: UserRoles/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int? userId, int? roleId)
         {
-            if (id == null)
+            if (userId == null || roleId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserRole userRole = await db.UserRole.FindAsync(id);
+            UserRole userRole = await db.UserRole
+                .Where(x => x.UserId == userId)
+                .Where(x => x.RoleId == roleId)
+                .Include(x => x.User)
+                .Include(x => x.Role).FirstOrDefaultAsync();
+
             if (userRole == null)
             {
                 return HttpNotFound();
@@ -117,12 +122,14 @@ namespace AumentaTest.Ejercicio3.Controllers
         // POST: UserRoles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int? userId, int? roleId)
         {
-            UserRole userRole = await db.UserRole.FindAsync(id);
+            UserRole userRole = await db.UserRole
+                .Where(x => x.UserId == userId)
+                .Where(x => x.RoleId == roleId).FirstAsync();
             db.UserRole.Remove(userRole);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Users", new { id = userId });
         }
 
         protected override void Dispose(bool disposing)

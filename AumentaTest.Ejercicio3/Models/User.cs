@@ -39,6 +39,6 @@ namespace AumentaTest.Ejercicio3.Models
         [DisplayName("Contraseña")]
         public string Password { get; set; }
 
-        public ObservableCollection<UserRole> UserRoles;
+        public List<UserRole> UserRoles;
     }
 }

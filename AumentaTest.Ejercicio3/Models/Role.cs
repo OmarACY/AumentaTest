@@ -25,7 +25,7 @@ namespace AumentaTest.Ejercicio3.Models
         [DisplayName("Habilitado")]
         public bool Enabled { get; set; }
 
-        public ObservableCollection<UserRole> UserRoles;
+        public List<UserRole> UserRoles;
         public ObservableCollection<RolePermission> RolePermissions;
     }
 }

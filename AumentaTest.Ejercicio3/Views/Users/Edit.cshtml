@@ -63,6 +63,47 @@
     </div>
 }
 
+<h3>Roles del usuario</h3>
+<hr />
+<div class="panel panel-default">
+    <div class="panel-heading">@Html.ActionLink("Agregar nuevo rol", "Create", null, new { @class = "btn btn-primary btn-block" })</div>
+    <table class="table">
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Habilitado
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.UserRoles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Enabled)
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete","UserRoles",new {userId = item.UserId, roleId = item.RoleId })" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
 <div>
     <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
     @Html.ActionLink("Regresar al listado", "Index") &nbsp;
